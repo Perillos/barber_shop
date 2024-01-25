@@ -1,0 +1,19 @@
+{
+  "name": "valero/app-salon_php_mvc_js_sass",
+  "description": "Proyecto PHP",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "MVC\\": "./",
+      "Controllers\\": "./controllers/",
+      "Models\\": "./models/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Fernando",
+      "email": "valero.ce@gmail.com"
+    }
+  ],
+  "require": {}
+}
