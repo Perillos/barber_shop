@@ -369,4 +369,11 @@ h3 {
 p {
   color: #FFFFFF;
   font-size: 2rem;
+}
+
+.contenedor-app .imagen {
+  height: 30rem;
+  background-image: url(../img/bg.jpg);
+  background-size: cover;
+  background-position: center center;
 }/*# sourceMappingURL=app.css.map */
