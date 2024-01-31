@@ -8,7 +8,7 @@ $user = $env['DB_USER'];
 $pass = $env['DB_PASSWORD'];
 
 
-$db = mysqli_connect($host, $user, '', '');
+$db = mysqli_connect($host, $user, $pass, $db);
 
 
 if (!$db) {
