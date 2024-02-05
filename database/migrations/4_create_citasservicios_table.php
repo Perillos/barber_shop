@@ -16,10 +16,9 @@ CREATE TABLE citasservicios (
     citald INT(11),
     serviciold INT(11),
     PRIMARY KEY (id),
-    FOREIGN KEY (citald) REFERENCES citas(id),
-    FOREIGN KEY (serviciold) REFERENCES servicios(id)
+    FOREIGN KEY (citald) REFERENCES citas(id) ON DELETE SET NULL,
+    FOREIGN KEY (serviciold) REFERENCES servicios(id) ON DELETE SET NULL
 );
-
 ";
 $result = mysqli_query($db, $sql);
 if (!$result) {

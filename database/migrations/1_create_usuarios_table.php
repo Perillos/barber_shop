@@ -1,12 +1,10 @@
 <?php
 
-
-
+// $db = mysqli_connect($host, $user, $pass, $name_db);
 $sql_drop = "DROP TABLE IF EXISTS usuarios";
 
-$result = mysqli_query($db, $sql_drop);
-if (!$result) {
-    die('Invalid query: ' . mysqli_error($db));
+if (mysqli_query($db, $sql_drop) === FALSE) {
+    die('Invalid query: 11' . mysqli_error($db));
 }
 
 
@@ -22,9 +20,10 @@ CREATE TABLE usuarios (
     PRIMARY KEY (id)
 );
 ";
-$result = mysqli_query($db, $sql);
-if (!$result) {
-    die('Invalid query: ' . mysqli_error($db));
+
+if (mysqli_query($db, $sql) === FALSE) {
+    die('Invalid query: 12' . mysqli_error($db));
 }
+
 echo "Usuarios table created";
 echo "<br>";

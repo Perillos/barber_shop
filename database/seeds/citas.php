@@ -1,22 +1,22 @@
 <?php
 
 
-$env = parse_ini_file('../../.env');
-$host = $env['DB_HOST'];
-$db = $env['DB'];
-$user = $env['DB_USER'];
-$pass = $env['DB_PASSWORD'];
+// $env = parse_ini_file('../../.env');
+// $host = $env['DB_HOST'];
+// $db = $env['DB'];
+// $user = $env['DB_USER'];
+// $pass = $env['DB_PASSWORD'];
 
 
-$db = mysqli_connect($host, $user, $pass, $db);
+// $db = mysqli_connect($host, $user, $pass, $db);
 
 
-if (!$db) {
-    echo "Error: No se pudo conectar a MySQL.";
-    echo "errno de depuración: " . mysqli_connect_errno();
-    echo "error de depuración: " . mysqli_connect_error();
-    exit;
-}
+// if (!$db) {
+//     echo "Error: No se pudo conectar a MySQL.";
+//     echo "errno de depuración: " . mysqli_connect_errno();
+//     echo "error de depuración: " . mysqli_connect_error();
+//     exit;
+// }
 
 
 $sql = "
@@ -35,8 +35,7 @@ VALUES
     (10, 'Lavado de Cabello', 50.00),
     (11, 'Tratamiento Capilar', 150.00);
 ";
-$result = mysqli_query($db, $sql);
-if (!$result) {
+if (mysqli_query($db, $sql) === FALSE) {
     die('Invalid query: ' . mysqli_error($db));
 }
 

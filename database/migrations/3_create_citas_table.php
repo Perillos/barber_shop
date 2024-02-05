@@ -16,7 +16,7 @@ CREATE TABLE citas (
     fecha TIME,
     usuariold INT(11),
     PRIMARY KEY (id),
-    FOREIGN KEY (usuariold) REFERENCES usuarios(id)
+    FOREIGN KEY (usuariold) REFERENCES usuarios(id) ON DELETE SET NULL
 );
 ";
 $result = mysqli_query($db, $sql);
