@@ -13,8 +13,8 @@ if (!$result) {
 $sql = "
 CREATE TABLE citas (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    fecha TIME NOT NULL,
-    usuariold INT(11) NOT NULL,
+    fecha TIME,
+    usuariold INT(11),
     PRIMARY KEY (id),
     FOREIGN KEY (usuariold) REFERENCES usuarios(id)
 );

@@ -13,8 +13,8 @@ if (!$result) {
 $sql = "
 CREATE TABLE servicios (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(60) NOT NULL,
-    precio DECIMAL(5,2) NOT NULL,
+    nombre VARCHAR(60),
+    precio DECIMAL(5,2),
     PRIMARY KEY (id)
 );
 ";

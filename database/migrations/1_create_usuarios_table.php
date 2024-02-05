@@ -13,11 +13,11 @@ if (!$result) {
 $sql = "
 CREATE TABLE usuarios (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(60) NOT NULL,
-    apellido VARCHAR(60) NOT NULL,
+    nombre VARCHAR(60),
+    apellido VARCHAR(60),
     telefono VARCHAR(60),
-    admin TINYINT(1) NOT NULL,
-    confirmado TINYINT(1) NOT NULL,
+    admin TINYINT(1),
+    confirmado TINYINT(1),
     token VARCHAR(60),
     PRIMARY KEY (id)
 );

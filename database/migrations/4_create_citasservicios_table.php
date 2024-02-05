@@ -13,8 +13,8 @@ if (!$result) {
 $sql = "
 CREATE TABLE citasservicios (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    citald INT(11) NOT NULL,
-    serviciold INT(11) NOT NULL,
+    citald INT(11),
+    serviciold INT(11),
     PRIMARY KEY (id),
     FOREIGN KEY (citald) REFERENCES citas(id),
     FOREIGN KEY (serviciold) REFERENCES servicios(id)
