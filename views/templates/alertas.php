@@ -1,7 +1,7 @@
 <?php
 
 foreach ($alertas as $key => $alerta) {
-    foreach ($mensajes as $mensaje) {
+    foreach ($alerta as $mensaje) {
 
 ?>
 
