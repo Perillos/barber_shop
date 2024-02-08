@@ -2,24 +2,26 @@
 
 namespace Classes;
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Email
 {
     public $email;
     public $nombre;
-    public  $token;
+    public $token;
+
     public function __construct($email, $nombre, $token)
     {
         $this->email = $email;
+        $this->nombre = $nombre;
+        $this->token = $token;
     }
 
-    public function enviarEmail($email, $nombre, $token)
+    public function enviarConfirmacion()
     {
-        $phpmailer = new PHPMailer();
-        $phpmailer->isSMTP();
-        $phpmailer->Host = '';
-        $phpmailer->SMTPAuth = '';
-        $phpmailer->Port = '';
-        $phpmailer->Username = '';
-        $phpmailer->Password = '';
+        // Crear el objeto de email
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'smtp.mailtrap.io'
     }
 }

@@ -42,6 +42,9 @@ class Usuario extends ActiveRecord
         if (!$this->apellido) {
             self::$alertas['error'][] = 'El apellido del cliente es obligatorio';
         }
+        if (!$this->telefono) {
+            self::$alertas['error'][] = 'El telefono del cliente es obligatorio';
+        }
         if (!$this->email) {
             self::$alertas['error'][] = 'El email del cliente es obligatorio';
         }
