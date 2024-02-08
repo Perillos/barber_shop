@@ -11,4 +11,15 @@ class Email
     {
         $this->email = $email;
     }
+
+    public function enviarEmail($email, $nombre, $token)
+    {
+        $phpmailer = new PHPMailer();
+        $phpmailer->isSMTP();
+        $phpmailer->Host = '';
+        $phpmailer->SMTPAuth = '';
+        $phpmailer->Port = '';
+        $phpmailer->Username = '';
+        $phpmailer->Password = '';
+    }
 }
