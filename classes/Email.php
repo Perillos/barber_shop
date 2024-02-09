@@ -38,10 +38,12 @@ class Email
         $mail->CharSet = 'UTF-8';
 
         $contenido = "<htm>";
-        $contenido .= "<p>hola</p>";
+        $contenido .= "<p><strong>Hola " . $this->nombre . " </strong> Has creado tu cuenta en App Salon, solo debes confirmarla presionando el siguiente enlace</p>";
+        $contenido .= "<p><a href='" . $_SERVER['HTTP_HOST'] . "/confirmar-cuenta?token=" . $this->token . "'>Confirmar cuenta</a></p>";
+        $contenido .= "<p>Si no solicitaste esta cuenta, puede ignorar el mensaje.</p>";
+        $contenido .= "</html>";
 
         $mail->Body = $contenido;
-
 
         // Enviar emal
         $mail->send();

@@ -53,8 +53,14 @@ class LoginController
 
                     // Enviar el Email
                     $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
-
                     $email->enviarConfirmacion();
+
+                    // Crear el usuario
+                    $resultado->$usuario->guardar();
+
+                    if ($resultado) {
+                        header('Location: /mensaje');
+                    }
                 }
             }
         }
@@ -63,5 +69,9 @@ class LoginController
             'usuario' => $usuario,
             'alertas' => $alerta
         ]);
+    }
+
+    public static function mensaje(Router $router)
+    {
     }
 }
