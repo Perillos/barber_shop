@@ -31,8 +31,8 @@ class LoginController
     public static function crear(Router $router)
     {
         $usuario = new Usuario();
-
         $alerta = [];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario->sincronizar($_POST);
             $alerta = $usuario->validarNuevaCuenta();
@@ -73,5 +73,16 @@ class LoginController
 
     public static function mensaje(Router $router)
     {
+        $router->render('auth/mensaje');
+    }
+
+    public static function confirmar(Router $router)
+    {
+        $alertas = [];
+        $token = s($_GET['token']);
+
+        $router->render('auth/confirmar-cuenta', [
+            'alertas' => $alertas
+        ]);
     }
 }
