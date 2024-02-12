@@ -60,7 +60,25 @@ class LoginController
 
     public static function olvide(Router $router)
     {
-        $router->render('auth/olvide-password', []);
+        $alertas = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $auth = new Usuario($_POST);
+            $alertas = $auth->validarEmail();
+
+            if ($alertas) {
+                $usuario = Usuario::where('email', $auth->email);
+
+                if ($usuario && $usuario->confirmado === "1") {
+                } else {
+                    Usuario::setAlerta('error', 'El usuario no existe o no está confirmado');
+                }
+            }
+        }
+
+        $router->render('auth/olvide-password', [
+            'alertas' => $alertas,
+        ]);
     }
 
     public static function recuperar()
