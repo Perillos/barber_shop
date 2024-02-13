@@ -98,7 +98,9 @@ class LoginController
     {
         $alertas = [];
 
-        $router->render('auth/recuperar-password', []);
+        $router->render('auth/recuperar-password', [
+            'alertas' => $alertas
+        ]);
     }
 
     public static function crear(Router $router)
