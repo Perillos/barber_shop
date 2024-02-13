@@ -75,6 +75,7 @@ class Usuario extends ActiveRecord
         if (!$this->email) {
             self::$alertas['error'][] = 'El E-Mail es obligatorio.';
         }
+        return self::$alertas;
     }
 
     // Revisa si el usuario ya existe

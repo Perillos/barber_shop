@@ -66,24 +66,39 @@ class LoginController
             $auth = new Usuario($_POST);
             $alertas = $auth->validarEmail();
 
-            if ($alertas) {
+            if (empty($alertas)) {
                 $usuario = Usuario::where('email', $auth->email);
 
-                if ($usuario && $usuario->confirmado === "1") {
+                // TODO: Revisar lógica. Cuando un usuario no está confirmado y quiere recuperar la contraseña, hay que tener en cuenta el caso en el que el usuario ha perdido el mail de confirmación de cuenta.
+                if ($usuario && $usuario->confirmar === "1") {
+                    // Generar un token
+                    $usuario->crearToken();
+                    $usuario->guardar();
+
+                    // Enviar el email
+                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                    $email->enviarInstrucciones();
+
+                    // Alerta de exito
+                    Usuario::setAlerta('exito', 'Revisa tu email');
                 } else {
                     Usuario::setAlerta('error', 'El usuario no existe o no está confirmado');
                 }
             }
         }
 
+        $alertas = Usuario::getAlertas();
+
         $router->render('auth/olvide-password', [
             'alertas' => $alertas,
         ]);
     }
 
-    public static function recuperar()
+    public static function recuperar(Router $router)
     {
-        echo "LoginController recuperar";
+        $alertas = [];
+
+        $router->render('auth/recuperar-password', []);
     }
 
     public static function crear(Router $router)
