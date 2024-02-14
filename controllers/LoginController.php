@@ -70,7 +70,7 @@ class LoginController
                 $usuario = Usuario::where('email', $auth->email);
 
                 // TODO: Revisar lógica. Cuando un usuario no está confirmado y quiere recuperar la contraseña, hay que tener en cuenta el caso en el que el usuario ha perdido el mail de confirmación de cuenta.
-                if ($usuario && $usuario->confirmar === "1") {
+                if ($usuario && $usuario->confirmado === "1") {
                     // Generar un token
                     $usuario->crearToken();
                     $usuario->guardar();
@@ -97,9 +97,28 @@ class LoginController
     public static function recuperar(Router $router)
     {
         $alertas = [];
+        $error = false;
 
+        $token = s($_GET['token']);
+
+        // Buscar usuario por su token
+        $usuario = Usuario::where('token', $token);
+
+        if (empty($usuario)) {
+            Usuario::setAlerta('error', 'Token no válid.');
+            $error = true;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Leer el nuevo password y guardado
+            $password = new Usuario($_POST);
+        }
+
+
+        $alertas = Usuario::getAlertas();
         $router->render('auth/recuperar-password', [
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'error' => $error
         ]);
     }
 

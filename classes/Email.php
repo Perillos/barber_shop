@@ -39,7 +39,7 @@ class Email
 
         $contenido = "<htm>";
         $contenido .= "<p><strong>Hola " . $this->nombre . " </strong> Has creado tu cuenta en App Salon, solo debes confirmarla presionando el siguiente enlace</p>";
-        $contenido .= "<p><a href='" . $_SERVER['HTTP_HOST'] . "/confirmar-cuenta?token=" . $this->token . "'>Confirmar cuenta</a></p>";
+        $contenido .= "<p><a href='http://" . $_SERVER['HTTP_HOST'] . "/confirmar-cuenta?token=" . $this->token . "'>Confirmar cuenta</a></p>";
         $contenido .= "<p>Si no solicitaste esta cuenta, puede ignorar el mensaje.</p>";
         $contenido .= "</html>";
 
@@ -71,7 +71,7 @@ class Email
 
         $contenido = "<htm>";
         $contenido .= "<p><strong>Hola " . $this->nombre . " </strong> Has solicitado reestablecer tu password, sigue el siguiente enlace para hacerlo.</p>";
-        $contenido .= "<p><a href='" . $_SERVER['HTTP_HOST'] . "/recuperar?token=" . $this->token . "'>Reestablecer password</a></p>";
+        $contenido .= "<p><a href='http://" . $_SERVER['HTTP_HOST'] . "/recuperar?token=" . $this->token . "'>Reestablecer password</a></p>";
         $contenido .= "<p>Si no solicitaste esta cuenta, puede ignorar el mensaje.</p>";
         $contenido .= "</html>";
 
