@@ -87,6 +87,7 @@ class Usuario extends ActiveRecord
         if (strlen($this->password)) {
             self::$alertas['error'][] = 'El password debe ser de al menos 6 caracteres';
         }
+        return self::$alertas;
     }
 
     // Revisa si el usuario ya existe

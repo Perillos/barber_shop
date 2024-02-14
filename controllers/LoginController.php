@@ -79,7 +79,7 @@ class LoginController
                     $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
                     $email->enviarInstrucciones();
 
-                    // Alerta de exito
+                    // Alertas de exito
                     Usuario::setAlerta('exito', 'Revisa tu email');
                 } else {
                     Usuario::setAlerta('error', 'El usuario no existe o no está confirmado');
@@ -112,6 +112,20 @@ class LoginController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Leer el nuevo password y guardado
             $password = new Usuario($_POST);
+            $alertas = $password->validarPassword();
+
+            if (empty($alertas)) {
+                $usuario->password = null;
+
+                $usuario->password = $password->password;
+                $usuario->hashPassword();
+                $usuario->token = null;
+
+                $resultado = $usuario->guardar();
+                if ($resultado) {
+                    header('Location: /');
+                }
+            }
         }
 
 
@@ -125,19 +139,19 @@ class LoginController
     public static function crear(Router $router)
     {
         $usuario = new Usuario();
-        $alerta = [];
+        $alertas = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario->sincronizar($_POST);
-            $alerta = $usuario->validarNuevaCuenta();
+            $alertas = $usuario->validarNuevaCuenta();
 
-            // Revisar que alerta este vacio
+            // Revisar que alertas este vacio
             if (empty($alerta)) {
                 // Verificar que el usuario no esté registrado
                 $resultado = $usuario->existeUsuario();
 
                 if ($resultado->num_rows) {
-                    $alerta = Usuario::getAlertas();
+                    $alertas = Usuario::getAlertas();
                 } else {
                     // No está registrado
                     $usuario->hashPassword();
@@ -162,7 +176,7 @@ class LoginController
 
         $router->render('auth/crear-cuenta', [
             'usuario' => $usuario,
-            'alertas' => $alerta
+            'alertas' => $alertas
         ]);
     }
 
