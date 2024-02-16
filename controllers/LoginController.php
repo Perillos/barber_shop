@@ -27,7 +27,9 @@ class LoginController
                         $usuario->comprobarVerificado() &&
                         $usuario->comprobarPassword($auth->password)
                     ) {
+                        // Autenticar el usuario
                         session_start();
+
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre_completo'] = $usuario->nombre . " " . $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
