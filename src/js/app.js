@@ -96,8 +96,9 @@ function paginaSiguiente() {
 async function consultaAPI() {
   try {
     const url = 'http://localhost:3001/api/servicios';
+
     const resultado = await fetch(url);
-    const servicios = await resultado.json;
+    const servicios = await resultado.json();
     mostrarServicios(servicios);
   } catch (error) {
     console.log(error);
@@ -113,5 +114,16 @@ function mostrarServicios(servicios) {
     nombreServicio.textContent = nombre;
 
     const precioServicio = document.createElement('P');
+    precioServicio.classList.add('precio-servicio');
+    precioServicio.textContent = `$ ${precio}`;
+
+    const servicioDiv = document.createElement('DIV');
+    servicioDiv.classList.add('servicio');
+    servicioDiv.dataset.idServicio = id;
+
+    servicioDiv.appendChild(nombreServicio);
+    servicioDiv.appendChild(precioServicio);
+
+    document.querySelector('#servicios').appendChild(servicioDiv);
   });
 }
