@@ -127,10 +127,22 @@ function mostrarServicios(servicios) {
     const servicioDiv = document.createElement('DIV');
     servicioDiv.classList.add('servicio');
     servicioDiv.dataset.idServicio = id;
+    servicioDiv.onclick = function () {
+      seleccionarServicio(servicio);
+    };
 
     servicioDiv.appendChild(nombreServicio);
     servicioDiv.appendChild(precioServicio);
 
     document.querySelector('#servicios').appendChild(servicioDiv);
   });
+}
+
+function seleccionarServicio(servicio) {
+  const { servicios } = cita;
+  cita.servicios = [...servicios, servicio];
+
+  const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
+  divServicio.classList.add('seleccionado');
+  console.log(cita);
 }
