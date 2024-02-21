@@ -25,6 +25,11 @@ function iniciarApp() {
 
   // Consutla la API en el backenD en el PHP
   consultaAPI();
+
+  // Añade el nombre del cliente al objeto cita
+  nombreCliente();
+  // Añade la fecha de la cita en el objeto
+  seleccionarFecha();
 }
 
 function mostrarSeccion() {
@@ -53,7 +58,7 @@ function mostrarSeccion() {
 function tabs() {
   const botones = document.querySelectorAll('.tabs button');
 
-  botones.forEach((boton) => {
+  botones.forEach(boton => {
     boton.addEventListener('click', function (eve) {
       paso = parseInt(eve.target.dataset.paso);
 
@@ -113,7 +118,7 @@ async function consultaAPI() {
 }
 
 function mostrarServicios(servicios) {
-  servicios.forEach((servicio) => {
+  servicios.forEach(servicio => {
     const { id, nombre, precio } = servicio;
 
     const nombreServicio = document.createElement('P');
@@ -139,10 +144,63 @@ function mostrarServicios(servicios) {
 }
 
 function seleccionarServicio(servicio) {
+  const { id } = servicio;
   const { servicios } = cita;
-  cita.servicios = [...servicios, servicio];
 
+  // Identificar el elemento al que se le dá click
   const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
-  divServicio.classList.add('seleccionado');
+
+  // Comprobar si un servicio ya fue agregado
+  if (servicios.some(agregado => agregado.id === id)) {
+    // Eliminarlo
+    cita.servicios = servicios.filter(agregado => agregado.id !== id);
+    console.log('Ya esta agreado');
+    divServicio.classList.remove('seleccionado');
+  } else {
+    // Agregarlo
+    cita.servicios = [...servicios, servicio];
+    divServicio.classList.add('seleccionado');
+  }
+
   console.log(cita);
+}
+
+function nombreCliente() {
+  cita.nombre = document.querySelector('#nombre').value;
+}
+
+function seleccionarFecha() {
+  const inputFecha = document.querySelector('#fecha');
+  inputFecha.addEventListener('input', function (eve) {
+    const dia = new Date(eve.target.value).getUTCDate();
+
+    if ([6, 0].includes(dia)) {
+      eve.target.value = '';
+      mostrarAlerta('Fines de semana no permitidos', 'error');
+    } else {
+      cita.fecha = eve.target.value;
+    }
+  });
+}
+
+function mostrarAlerta(mensaje, tipo) {
+  // Previene que se generen más de una alerta
+  const alertaPrevia = document.querySelector('.alerta');
+  if (alertaPrevia) {
+    return;
+  }
+
+  // Scripting para crear la alerta
+  const alerta = document.createElement('DIV');
+  alerta.textContent = mensaje;
+  alerta.classList.add('alerta');
+  alerta.classList.add(tipo);
+
+  const formulario = document.querySelector('.formulario');
+  formulario.appendChild(alerta);
+
+  // Eliminar la alerta
+  setTimeout(() => {
+    alerta.remove();
+  }, 3000);
 }
