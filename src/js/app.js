@@ -281,8 +281,24 @@ function mostrarResumen(params) {
   const nombreCliente = document.createElement('P');
   nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
 
+  // Formatear la fecha
+  const fechaObj = new Date(fecha);
+  const dia = fechaObj.getDate();
+  const mes = fechaObj.getMonth();
+  const year = fechaObj.getFullYear();
+
+  const fechaUtc = new Date(Date.UTC(year, mes, dia));
+
+  const opciones = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const fechaFormateada = fechaUtc.toLocaleDateString('es-ES', opciones);
+
   const fechaCita = document.createElement('P');
-  fechaCita.innerHTML = `<span>Fecha:</span> ${fecha}`;
+  fechaCita.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`;
 
   const horaCita = document.createElement('P');
   horaCita.innerHTML = `<span>Hora:</span> ${hora} horas`;
