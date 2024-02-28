@@ -316,4 +316,17 @@ function mostrarResumen(params) {
   resumen.appendChild(botonReservar);
 }
 
-function reservarCita() {}
+async function reservarCita() {
+  const datos = new FormData();
+  datos.append('nombre', 'Fernando');
+  // console.log([...datos]);
+
+  // Petición hacia la api
+  const url = 'http://localhost:3001/api/citas';
+
+  const respuesta = await fetch(url, {
+    method: 'POST',
+  });
+
+  const resultado = await respuesta.json();
+}
