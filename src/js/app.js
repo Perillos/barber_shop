@@ -317,8 +317,13 @@ function mostrarResumen(params) {
 }
 
 async function reservarCita() {
+  const { nombre, fecha, hora } = cita;
+
   const datos = new FormData();
-  datos.append('nombre', 'Fernando');
+
+  datos.append('nombre', nombre);
+  datos.append('fecha', fecha);
+  datos.append('hora', hora);
   // console.log([...datos]);
 
   // Petición hacia la api
