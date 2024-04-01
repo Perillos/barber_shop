@@ -3,6 +3,8 @@ const pasoInicial = 1;
 const pasoFinal = 3;
 
 const cita = {
+  // TODO: Cambiar id como input hidden en el formulario
+  id: '',
   nombre: '',
   fecha: '',
   hora: '',
@@ -26,6 +28,7 @@ function iniciarApp() {
   // Consutla la API en el backenD en el PHP
   consultaAPI();
 
+  idCliente();
   // Añade el nombre del cliente al objeto cita
   nombreCliente();
   // Añade la fecha de la cita en el objeto
@@ -169,6 +172,10 @@ function seleccionarServicio(servicio) {
     cita.servicios = [...servicios, servicio];
     divServicio.classList.add('seleccionado');
   }
+}
+
+function idCliente() {
+  cita.id = document.querySelector('#id').value;
 }
 
 function nombreCliente() {
@@ -317,22 +324,45 @@ function mostrarResumen(params) {
 }
 
 async function reservarCita() {
-  const { nombre, fecha, hora } = cita;
+  const { id, fecha, hora } = cita;
+
+  const idServicios = cita.servicios.map(servicio => servicio.id);
 
   const datos = new FormData();
-
-  datos.append('nombre', nombre);
+  datos.append('usuarioId', id);
   datos.append('fecha', fecha);
   datos.append('hora', hora);
-  // console.log([...datos]);
+  datos.append('servicios', idServicios);
+  //   console.log([...datos]);
 
-  // Petición hacia la api
-  const url = 'http://localhost:3001/api/citas';
+  try {
+    // Petición hacia la api
+    const url = 'http://localhost:3001/api/citas';
 
-  const respuesta = await fetch(url, {
-    method: 'POST',
-    body: datos,
-  });
+    const respuesta = await fetch(url, {
+      method: 'POST',
+      body: datos,
+    });
 
-  const resultado = await respuesta.json();
+    const resultado = await respuesta.json();
+    //   console.log(resultado);
+
+    if (resultado.resultado) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Cita creada',
+        text: 'Tu cita ha sido creada correctamente',
+        confirmButtonText: 'Ok',
+      }).then(() => {
+        window.location.reload();
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Hubo un error al crear la cita.',
+      confirmButtonText: 'Cerrar',
+    });
+  }
 }

@@ -13,10 +13,11 @@ if (!$result) {
 $sql = "
 CREATE TABLE citas (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    fecha TIME,
-    usuariold INT(11),
+    fecha DATE,
+    hora TIME,
+    usuarioId INT(11),
     PRIMARY KEY (id),
-    FOREIGN KEY (usuariold) REFERENCES usuarios(id) ON DELETE SET NULL
+    FOREIGN KEY (usuarioId) REFERENCES usuarios(id) ON DELETE SET NULL
 );
 ";
 $result = mysqli_query($db, $sql);

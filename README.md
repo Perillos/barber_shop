@@ -40,7 +40,7 @@ $router->get('/', [LoginController::class, 'login']);
 | --------- | ------- |
 | id        | int(11) |
 | fecha     | time    |
-| usuariold | int(11) |
+| usuarioId | int(11) |
 
 #### CitasServicios
 

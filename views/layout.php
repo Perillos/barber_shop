@@ -17,7 +17,10 @@
         </div>
     </div>
 
-    <?php echo $script ?? ''; ?>
+    <?php
+    // TODO: Cambiar la forma de cargar los scripts. Crear al princio un array y luego recorrerlo. Usar 'defer'
+    echo $script ?? '';
+    ?>
 
 </body>
 

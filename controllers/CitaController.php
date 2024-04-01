@@ -10,7 +10,9 @@ class CitaController
     {
 
         $router->render('cita/index', [
-            'nombre' => $_SESSION['nombre_completo']
+            'nombre' => $_SESSION['nombre_completo'],
+            // TODO: Cambiar id como input hidden en el formulario
+            'id' => $_SESSION['id']
         ]);
     }
 }
